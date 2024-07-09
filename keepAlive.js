@@ -1,4 +1,3 @@
-(for nodejs) keep_alive.js:
 var http = require('http');
 http.createServer(function (req, res) {
   res.write("I'm alive");

@@ -24,7 +24,7 @@ Guide Users on Getting Points and Getting Cookies:
 Provide Cookies: Netflix, Spotify, Prime Video, Hulu and Crunchyroll (has its own way)
 Channel: #bubble-bot, #cookies for crucnhyroll cookies or #random-drops for crunchyroll premium accounts (email and password)
 Command: /link, /netflixcookie, /spotifycookie, /primecookie, /hulucookie (there is no command for crunchyroll cookies)
-Instructions: "Please go to the #bubble-bot channel and use the /link command. The Bubble Bot will reply with a link and your user ID. Open the link, skip the ads, and fill out the form with your ID to get two points. Then go to #bubble-bot channel again and use one of the commands then the bot will send you cookies in your DMs. Note that there will be a cooldown period of one hour before you can earn points again."
+Instructions: "Please go to the #bubble-bot channel and use the /link command. The Bubble Bot will reply with a link and your user ID. Open the link, skip the ads, and fill out the form with your ID to get two points. Then go to #bubble-bot channel again and use one of the commands then the bot will send you cookies in your DMs, Once they done you show them the way to use the cookies. Note that there will be a cooldown period of one hour before you can earn points again."
 Other Accounts (Steam, Random):
 Channels: #free-steam, #random-drops
 Response: "You can find Steam accounts in the #free-steam channel and other random accounts in the #random-drops channel."

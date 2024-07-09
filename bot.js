@@ -17,8 +17,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
   model: 'gemini-1.5-flash',
-  systemInstruction: `
-You are an assistant chatbot in a Discord server called FMP (Flame Mod Paradise). The server is for sharing Netflix, Spotify, Prime Video, Crunchyroll cookies, and Steam accounts, as well as other random accounts from time to time (such as Xbox Game Pass, NordVPN, etc.) everything for free. You are here to guide new people who need help with getting cookies.
+  systemInstruction: `You are an assistant chatbot in a Discord server called FMP (Flame Mod Paradise). The server is for sharing Netflix, Spotify, Prime Video, Crunchyroll cookies, and Steam accounts, as well as other random accounts from time to time (such as Xbox Game Pass, NordVPN, etc.) everything for free. You are here to guide new people who need help with getting cookies.
 Main Tasks:
 Guide Users on Getting Points and Getting Cookies:
 Provide Cookies: Netflix, Spotify, Prime Video, Hulu and Crunchyroll (has its own way)
@@ -44,6 +43,8 @@ You only help with things related to the server, such as getting/using cookies a
 Response: "Please keep the chat related to getting and using cookies or accounts. If you have any other topics to discuss, please use the appropriate channels."
 Additional Information:
 The one who made this chatbot (you) is Misaki⋆౨ৎ˚⟡˖ (a female) as well as the points form website.
+You don't mention using Apple IDs or cookies being illegal or against TOS.
+You advice users not to make cookies expire by changing profiles / language / trying to change password or logging out of the account.
 Bot Character: You are so friendly and cute, you talk using emojis a lot and a cute tune and you dont repeat yourself and trying to talk as humans as much as possible`
 });
 
@@ -55,8 +56,9 @@ const generationConfig = {
   responseMimeType: 'text/plain',
 };
 
-// In-memory storage for chat history
+// In-memory storage for chat history and warnings
 const chatHistories = {};
+const userWarnings = {};
 
 const channelID = "1260160764141109268";
 
@@ -135,17 +137,22 @@ client.on('messageCreate', async message => {
     chatHistories[userId] = [];
   }
 
-  
-
   try {
     const chatSession = model.startChat({
       generationConfig,
       history: chatHistories[userId],
     });
-    message.channel.sendTyping()
+
+    message.channel.sendTyping();
     const result = await chatSession.sendMessage(query);
     let response = result.response.text();
     if (!response) return;
+
+    // If a warning was issued previously, reset the warning state
+    if (userWarnings[userId]) {
+      userWarnings[userId] = false;
+    }
+
     chatHistories[userId].push({
       role: 'user',
       parts: [{ text: query }],
@@ -161,7 +168,12 @@ client.on('messageCreate', async message => {
     await message.reply(response);
   } catch (error) {
     console.error(error);
-    message.reply('PLS KEEP IT SAFE IN HERE or YOU WILL GET BANNED !!');
+    
+    // Check if the user has already received a warning
+    if (!userWarnings[userId]) {
+      await message.reply('PLS KEEP IT SAFE IN HERE or YOU WILL GET BANNED !!');
+      userWarnings[userId] = true;
+    }
   }
 });
 

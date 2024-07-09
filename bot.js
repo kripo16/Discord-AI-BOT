@@ -135,10 +135,7 @@ client.on('messageCreate', async message => {
     chatHistories[userId] = [];
   }
 
-  chatHistories[userId].push({
-    role: 'user',
-    parts: [{ text: query }],
-  });
+  
 
   try {
     const chatSession = model.startChat({
@@ -148,19 +145,23 @@ client.on('messageCreate', async message => {
     message.channel.sendTyping()
     const result = await chatSession.sendMessage(query);
     let response = result.response.text();
-
+    if (!response) return;
+    chatHistories[userId].push({
+      role: 'user',
+      parts: [{ text: query }],
+    });
     chatHistories[userId].push({
       role: 'model',
       parts: [{ text: response }],
     });
 
     console.log(`Response from Gemini AI: ${response}`);
-    if (!response) return;
+    
     // Reply to the user with the generated response
     await message.reply(response);
   } catch (error) {
     console.error(error);
-    message.reply('An error occurred while fetching data from Gemini AI.');
+    message.reply('PLS KEEP IT SAFE IN HERE or YOU WILL GET BANNED !!');
   }
 });
 

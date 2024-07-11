@@ -14,7 +14,7 @@ const client = new Client({
 
 const discordToken = process.env.DISCORD_BOT_TOKEN;
 const apiKey = process.env.GEMINI_API_KEY;
-const channelID = "1260160764141109268";
+const channelID = "1260979255823564930";
 const blackListedUsersFilePath = 'blackListedUsers.json';
 const badWordsFilePath = 'badwords.txt';
 const configFilePath = 'config.txt';

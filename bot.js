@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 const { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } = require('@google/generative-ai');
+const keepAlive = require("./keepAlive.js");
 
 require('dotenv').config();
 
